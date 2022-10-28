@@ -6853,6 +6853,10 @@ PrefabInstance:
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 561998327}
+    - target: {fileID: 1995279681846732344, guid: bb51aa7534abea84bb3f5036508f1628, type: 3}
+      propertyPath: m_ModelPrefab
+      value: 
+      objectReference: {fileID: -8679921383154817045, guid: a64d717e50d40c44fb6abe252f2a3a60, type: 3}
     - target: {fileID: 1995279681847414276, guid: bb51aa7534abea84bb3f5036508f1628, type: 3}
       propertyPath: m_Name
       value: XR Origin
@@ -6901,6 +6905,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1995279682045487464, guid: bb51aa7534abea84bb3f5036508f1628, type: 3}
+      propertyPath: m_ModelPrefab
+      value: 
+      objectReference: {fileID: -8679921383154817045, guid: a64d717e50d40c44fb6abe252f2a3a60, type: 3}
     - target: {fileID: 1995279682045487479, guid: bb51aa7534abea84bb3f5036508f1628, type: 3}
       propertyPath: m_UseForceGrab
       value: 0
