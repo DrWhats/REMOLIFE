@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class Bird : MonoBehaviour
 {
-    private Vector3 initialPosition;
-    private Vector3 flyPosition;
+    private Vector3 _initialPosition;
+    private Vector3 _flyPosition;
     private Rigidbody _rigidbody;
     private Animator animator;
 
@@ -14,17 +14,17 @@ public class Bird : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
-        initialPosition = _rigidbody.position;
-        flyPosition = initialPosition + new Vector3(0, 10, 0);
+        _initialPosition = _rigidbody.position;
+        _flyPosition = _initialPosition + new Vector3(0, 10, 0);
     }
 
     public void StartFly()
     {
-        _rigidbody.MovePosition(flyPosition);
+        _rigidbody.MovePosition(_flyPosition); // Заменить на старт анимации полёта
     }
 
     public void StopFly()
     {
-        _rigidbody.MovePosition(initialPosition);
+        _rigidbody.MovePosition(_initialPosition); // Заменить на прекращение полёта
     }
 }
