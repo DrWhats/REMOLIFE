@@ -1,38 +1,28 @@
-using Unity.XR.OpenVR;
+
+using System.Collections;
 using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
 {
-    public GameObject target;
-    public Bird bird;
-    public float maxVelocity; 
+    [SerializeField] private Bird bird;
+    [SerializeField] float currentRightVelocity;
+    [SerializeField] float currentLeftVelocity;
+    [SerializeField] float maxVelocity;
 
-    private Rigidbody _rigidbody;
-    
-    private OpenVRHMD _hmd;
-    private OpenVROculusTouchController _rightController; // Как привязать их к соответствующим контроллерам?
-    private OpenVROculusTouchController _leftController; // Как привязать их к соответствующим контроллерам?
-    
-    // .deviceVelocity возвращает вектор скоростей в 3хмерном пространстве (х, у, z)
-    // .valueSizeInBytes не уверен, но надеюсь он приводит вектор к скаляру
-    
-    /*
-    void Update()
-    {
-        if (_hmd.deviceVelocity.valueSizeInBytes > maxVelocity || 
-            _rightController.deviceVelocity.valueSizeInBytes > maxVelocity || 
-            _leftController.deviceVelocity.valueSizeInBytes > maxVelocity)
-        {
-            Debug.Log("Don't move so quick.");
-            bird.StartFly();
-        }
-    }
-    */
-    
+    [SerializeField] private GameObject _rightController;
+    [SerializeField] private GameObject _leftController;
+
     // Update is called once per frame
+
+    private void Start()
+    {
+        StartCoroutine(CalcSpeed());
+    }
+
     void Update()
     {
-        if (_rigidbody && _rigidbody.velocity.magnitude > maxVelocity)
+        if (currentLeftVelocity > maxVelocity ||
+            currentRightVelocity > maxVelocity)
         {
             Debug.Log("Player is very fast.");
             bird.StartFly();
@@ -41,20 +31,35 @@ public class FollowPlayer : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == target)
+        if (other.gameObject == _rightController || other.gameObject == _leftController)
         {
-            _rigidbody = other.attachedRigidbody;
             Debug.Log("Player in zone");
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject == target)
+        if (other.gameObject == _rightController || other.gameObject == _leftController)
         {
-            _rigidbody = null;
             bird.StopFly();
             Debug.Log("Player not in zone");
+        }
+    }
+
+    IEnumerator CalcSpeed()
+    {
+        while (true)
+        {
+            Vector3 prevRightPos = _rightController.transform.position;
+            Vector3 prevLeftPos = _leftController.transform.position;
+
+            yield return new WaitForFixedUpdate();
+
+            currentRightVelocity = (Vector3.Distance(_rightController.transform.position,
+                prevRightPos) / Time.fixedDeltaTime);
+            
+            currentLeftVelocity = (Vector3.Distance(_leftController.transform.position,
+                prevLeftPos) / Time.fixedDeltaTime);
         }
     }
 }
