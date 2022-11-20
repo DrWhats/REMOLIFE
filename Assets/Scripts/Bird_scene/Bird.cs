@@ -5,26 +5,23 @@ using UnityEngine;
 
 public class Bird : MonoBehaviour
 {
-    private Vector3 _initialPosition;
-    private Vector3 _flyPosition;
-    private Rigidbody _rigidbody;
-    private Animator animator;
+    [SerializeField] private Animator birdAnimator;
+    [SerializeField] private Animator birdContainer;
 
     private void Start()
     {
-        _rigidbody = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
-        _initialPosition = _rigidbody.position;
-        _flyPosition = _initialPosition + new Vector3(0, 10, 0);
+        
     }
 
     public void StartFly()
     {
-        _rigidbody.MovePosition(_flyPosition); // Заменить на старт анимации полёта
+        Debug.Log("Start Flying");
+        birdAnimator.Play("StartFly");
     }
 
     public void StopFly()
     {
-        _rigidbody.MovePosition(_initialPosition); // Заменить на прекращение полёта
+        Debug.Log("Stop Flying");
+        birdAnimator.Play("Landing");
     }
 }
