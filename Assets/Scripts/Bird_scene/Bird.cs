@@ -15,13 +15,20 @@ public class Bird : MonoBehaviour
 
     public void StartFly()
     {
-        Debug.Log("Start Flying");
+        birdAnimator.SetBool("PlayerTooFast", true);
+        birdContainer.SetBool("PlayerInZone", true);
+        birdContainer.Play("fly");
         birdAnimator.Play("StartFly");
+        Debug.Log("Start Flying");
     }
 
     public void StopFly()
     {
+        //birdAnimator.SetBool("PlayerTooFast", false);
+        birdContainer.SetBool("PlayerInZone", false);
+        birdAnimator.SetBool("PlayerTooFast", false);
+        birdContainer.Play("land");
+        birdAnimator.Play("Flying 0");
         Debug.Log("Stop Flying");
-        birdAnimator.Play("Landing");
     }
 }

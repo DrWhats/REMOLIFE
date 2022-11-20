@@ -13,6 +13,7 @@ public class FollowPlayer : MonoBehaviour
     [SerializeField] private GameObject _leftController;
 
     private bool inZone = false;
+    private bool isFlying = false;
 
     // Update is called once per frame
 
@@ -24,10 +25,11 @@ public class FollowPlayer : MonoBehaviour
     void Update()
     {
         if ((currentLeftVelocity > maxVelocity ||
-            currentRightVelocity > maxVelocity) && inZone)
+            currentRightVelocity > maxVelocity) && inZone && !isFlying)
         {
             Debug.Log("Player is very fast.");
             bird.StartFly();
+            isFlying = true;
         }
     }
 
@@ -45,6 +47,7 @@ public class FollowPlayer : MonoBehaviour
         if (other.gameObject == _rightController || other.gameObject == _leftController)
         {
             bird.StopFly();
+            isFlying = false;
             inZone = false;
         }
     }
