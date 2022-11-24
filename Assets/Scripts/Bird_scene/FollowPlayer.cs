@@ -11,6 +11,7 @@ public class FollowPlayer : MonoBehaviour
 
     [SerializeField] private GameObject _rightController;
     [SerializeField] private GameObject _leftController;
+    [SerializeField] private GameObject[] _popUp;
 
     private bool inZone = false;
     private bool isFlying = false;
@@ -29,6 +30,7 @@ public class FollowPlayer : MonoBehaviour
         {
             Debug.Log("Player is very fast.");
             bird.StartFly();
+            _popUp[0].SetActive(true);
             isFlying = true;
         }
     }
@@ -47,6 +49,7 @@ public class FollowPlayer : MonoBehaviour
         if (other.gameObject == _rightController || other.gameObject == _leftController)
         {
             bird.StopFly();
+            _popUp[1].SetActive(true);
             isFlying = false;
             inZone = false;
         }
