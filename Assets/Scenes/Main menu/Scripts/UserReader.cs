@@ -5,25 +5,52 @@ using UnityEngine;
 
 public static class UserReader
 {
-    private static string _path = Application.persistentDataPath + "/Users";
-    private static string[] _usersList;
+    private string _path = Application.persistentDataPath + "/Users"; 
+    private string[] _playerList;
+    public player _currentPlayer;
+    
+    static void loadPlayer(string name)
+    {
+        _currentPlayer = new player(name);
+    }
 
-    private static void CheckAndCrate()
+    private static void CheckAndCreate()
     {
-        // File.Exists(_path + "/player.json") ? GetUsers() : CreateUser("player");
+        if (getPlayers() == null)
+        {
+            createPlayer("Player");
+        }
     }
     
-    public static void CreateUser(string name)
+    public static void CreatePlayer(string name)
     {
-        File.Create(String.Format("{0}/{1}.json", _path, name));
+        player newPlayer = new player(name);
+        SavePlayerToJson(newPlayer);
     }
     
-    public static string[] GetUsers()
+    private static void LoadPlayerFromJson(string name)
+    {
+        string json = File.ReadAllText(_path + "/" + name + ".json");
+        _currentPlayer = JsonUtility.FromJson<player>(json);
+    }
+    
+    public static string[] GetPlayersList()
     {
         _usersList = Directory.GetFiles(_path, "*.json")
             .Select(Path.GetFileName)
             .ToArray();
         
         return _usersList;
+    }
+    
+    public static void DeletePlayer(string name)
+    {
+        File.Delete(String.Format("{0}/{1}.json", _path, name));
+    }
+    
+    public void SavePlayerToJson(player player)
+    {
+        string json = JsonUtility.ToJson(player);
+        File.WriteAllText(Application.persistentDataPath + "/" + name.ToString()+".json", json);
     }
 }

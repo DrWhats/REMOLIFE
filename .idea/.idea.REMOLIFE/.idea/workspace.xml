@@ -28,6 +28,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< Updated upstream
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Discover.Launch.Via.Unity": "true",
@@ -39,9 +40,19 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+=======
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Discover.Launch.Via.Unity&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+>>>>>>> Stashed changes
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="UnitTests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="D:\soft\Unity hub\Installs\2021.3.11f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="D:\Unity\2021.3.11f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath &quot;D:\soft\Unity hub\Projects\REMOLIFE&quot; -testResults Logs/results.xml -testPlatform EditMode -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="D:\soft\Unity hub\Projects\REMOLIFE" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -84,7 +95,12 @@
       <workItem from="1669131434721" duration="2000" />
       <workItem from="1669295108337" duration="926000" />
       <workItem from="1669297161144" duration="600000" />
+<<<<<<< Updated upstream
       <workItem from="1669720160272" duration="3191000" />
+=======
+      <workItem from="1669724960085" duration="152000" />
+      <workItem from="1669725250109" duration="645000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
@@ -104,5 +120,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
