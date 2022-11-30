@@ -3,47 +3,57 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
-public static class UserReader
+class UserReader: MonoBehaviour
 {
     private string _path = Application.persistentDataPath + "/Users"; 
     private string[] _playerList;
-    public player _currentPlayer;
-    
-    static void loadPlayer(string name)
+    [SerializeField] private player _currentPlayer;
+    [SerializeField] private GameObject _createPanel;
+    [SerializeField] private GameObject _PlayersPanel;
+
+    private void Start()
     {
-        _currentPlayer = new player(name);
+        CheckForPath();
+        _playerList = GetPlayersList();
+        if (_playerList.Length == 0) {
+            _createPanel.SetActive(true);
+        } 
+        else {
+            _PlayersPanel.SetActive(true);
+        }
+
     }
 
-    private static void CheckAndCreate()
+    void CheckForPath()
     {
-        if (getPlayers() == null)
+        if (!Directory.Exists(_path))
         {
-            createPlayer("Player");
+            Directory.CreateDirectory(_path);
         }
     }
-    
-    public static void CreatePlayer(string name)
+
+    public void CreatePlayer(string name)
     {
         player newPlayer = new player(name);
         SavePlayerToJson(newPlayer);
     }
     
-    private static void LoadPlayerFromJson(string name)
+    public void LoadPlayerFromJson(string name)
     {
         string json = File.ReadAllText(_path + "/" + name + ".json");
         _currentPlayer = JsonUtility.FromJson<player>(json);
     }
     
-    public static string[] GetPlayersList()
+    public string[] GetPlayersList()
     {
-        _usersList = Directory.GetFiles(_path, "*.json")
+        _playerList = Directory.GetFiles(_path, "*.json")
             .Select(Path.GetFileName)
             .ToArray();
         
-        return _usersList;
+        return _playerList;
     }
     
-    public static void DeletePlayer(string name)
+    public void DeletePlayer(string name)
     {
         File.Delete(String.Format("{0}/{1}.json", _path, name));
     }
