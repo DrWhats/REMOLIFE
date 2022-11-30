@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 class UserReader: MonoBehaviour
@@ -8,8 +9,10 @@ class UserReader: MonoBehaviour
     private string _path = null;
     private string[] _playerList;
     [SerializeField] private player _currentPlayer;
+    [SerializeField] private GameObject _mainPanel;
     [SerializeField] private GameObject _createPanel;
     [SerializeField] private GameObject _PlayersPanel;
+    [SerializeField] private GameObject _playerPlatePrefab;
 
     private void Start()
     {
@@ -17,12 +20,17 @@ class UserReader: MonoBehaviour
         CheckForPath();
         _playerList = GetPlayersList();
         if (_playerList.Length == 0) {
-            _createPanel.SetActive(true);
+            //_createPanel.SetActive(true);
         } 
         else {
             _PlayersPanel.SetActive(true);
+            _mainPanel.SetActive(false);
+            foreach (var player in _playerList) {
+                var playerPlate = Instantiate(_playerPlatePrefab, _PlayersPanel.transform);
+                Debug.Log(player);
+                playerPlate.GetComponentInChildren<TextMeshProUGUI>().text = player;
+            }
         }
-
     }
 
     void CheckForPath()
@@ -31,6 +39,8 @@ class UserReader: MonoBehaviour
         {
             Directory.CreateDirectory(_path);
             Debug.Log("Created Directory");
+            CreatePlayer("Player");
+            LoadPlayerFromJson("Player");
             Debug.Log(_path);
         }
         else
@@ -55,7 +65,7 @@ class UserReader: MonoBehaviour
     public string[] GetPlayersList()
     {
         _playerList = Directory.GetFiles(_path, "*.json")
-            .Select(Path.GetFileName)
+            .Select(Path.GetFileNameWithoutExtension)
             .ToArray();
         
         return _playerList;
@@ -69,6 +79,6 @@ class UserReader: MonoBehaviour
     public void SavePlayerToJson(player player)
     {
         string json = JsonUtility.ToJson(player);
-        File.WriteAllText(Application.persistentDataPath + "/" + name.ToString()+".json", json);
+        File.WriteAllText(_path + "/" + player.name.ToString()+".json", json);
     }
 }
