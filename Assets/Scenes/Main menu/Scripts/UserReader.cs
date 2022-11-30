@@ -8,12 +8,15 @@ class UserReader: MonoBehaviour
 {
     private string _path = null;
     private string[] _playerList;
-    [SerializeField] private player _currentPlayer;
+    private player _currentPlayer;
     [SerializeField] private GameObject _mainPanel;
     [SerializeField] private GameObject _createPanel;
     [SerializeField] private GameObject _PlayersPanel;
     [SerializeField] private GameObject _playerPlatePrefab;
-
+    [SerializeField] private TextMeshProUGUI _playerName;
+    [SerializeField] private TextMeshProUGUI _playerDay;
+    [SerializeField] private GameObject _startButton;
+    [SerializeField] private GameObject _continueButton;
     private void Start()
     {
         _path = Application.persistentDataPath + "/Users"; 
@@ -27,10 +30,15 @@ class UserReader: MonoBehaviour
             _mainPanel.SetActive(false);
             foreach (var player in _playerList) {
                 var playerPlate = Instantiate(_playerPlatePrefab, _PlayersPanel.transform);
-                Debug.Log(player);
-                playerPlate.GetComponentInChildren<TextMeshProUGUI>().text = player;
+                playerPlate.GetComponentInChildren<PlayerPlate>().SetPlayer(GetPlayerFromJson(player));
             }
         }
+    }
+    
+    public void ShowMainMenu() {
+        _mainPanel.SetActive(true);
+        _PlayersPanel.SetActive(false);
+        _createPanel.SetActive(false);
     }
 
     void CheckForPath()
@@ -40,7 +48,6 @@ class UserReader: MonoBehaviour
             Directory.CreateDirectory(_path);
             Debug.Log("Created Directory");
             CreatePlayer("Player");
-            LoadPlayerFromJson("Player");
             Debug.Log(_path);
         }
         else
@@ -56,10 +63,18 @@ class UserReader: MonoBehaviour
         SavePlayerToJson(newPlayer);
     }
     
-    public void LoadPlayerFromJson(string name)
+    public player GetPlayerFromJson(string name)
     {
         string json = File.ReadAllText(_path + "/" + name + ".json");
-        _currentPlayer = JsonUtility.FromJson<player>(json);
+        player tempPlayer = JsonUtility.FromJson<player>(json);
+        return tempPlayer;
+    }
+    
+    public void SetCurrentPlayer(player player)
+    {
+        _currentPlayer = player;
+        LoadPlayerData();
+
     }
     
     public string[] GetPlayersList()
@@ -81,4 +96,19 @@ class UserReader: MonoBehaviour
         string json = JsonUtility.ToJson(player);
         File.WriteAllText(_path + "/" + player.name.ToString()+".json", json);
     }
+    
+    public void LoadPlayerData()
+    {
+        _playerName.text = _currentPlayer.name;
+        _playerDay.text = "День "+ _currentPlayer.day.ToString();
+        if (_currentPlayer.day == 0) {
+            _continueButton.SetActive(false);
+            _startButton.SetActive(true);
+        }
+        else {
+            _continueButton.SetActive(true);
+            _startButton.SetActive(false);
+        }
+    }
+    
 }

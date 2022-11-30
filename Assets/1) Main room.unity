@@ -876,10 +876,10 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
+    m_Top: 10
+    m_Bottom: 10
   m_ChildAlignment: 4
-  m_Spacing: -53.97
+  m_Spacing: -50
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -937,6 +937,7 @@ GameObject:
   - component: {fileID: 379426078}
   - component: {fileID: 379426077}
   - component: {fileID: 379426080}
+  - component: {fileID: 379426081}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -1018,6 +1019,22 @@ MonoBehaviour:
   _createPanel: {fileID: 1613431788}
   _PlayersPanel: {fileID: 979408058}
   _playerPlatePrefab: {fileID: 8124965568011074079, guid: 259e06133baac224088fe5ed3213d835, type: 3}
+  _playerName: {fileID: 1620123624}
+  _playerDay: {fileID: 1950087823}
+  _startButton: {fileID: 1775349058}
+  _continueButton: {fileID: 506910681}
+--- !u!114 &379426081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379426076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1c43572016044fbaecce86aa727d69c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &414818341 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dc6b683c3e42aab4f85467340322afc6, type: 3}
@@ -8421,10 +8438,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 41.45
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -10031,7 +10048,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2001244246}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 456782198}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 979408058}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &2001244246
 MonoBehaviour:
   m_ObjectHideFlags: 0
