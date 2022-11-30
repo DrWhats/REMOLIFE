@@ -5,7 +5,7 @@ using UnityEngine;
 
 class UserReader: MonoBehaviour
 {
-    private string _path = Application.persistentDataPath + "/Users"; 
+    private string _path = null;
     private string[] _playerList;
     [SerializeField] private player _currentPlayer;
     [SerializeField] private GameObject _createPanel;
@@ -13,6 +13,7 @@ class UserReader: MonoBehaviour
 
     private void Start()
     {
+        _path = Application.persistentDataPath + "/Users"; 
         CheckForPath();
         _playerList = GetPlayersList();
         if (_playerList.Length == 0) {
@@ -29,6 +30,13 @@ class UserReader: MonoBehaviour
         if (!Directory.Exists(_path))
         {
             Directory.CreateDirectory(_path);
+            Debug.Log("Created Directory");
+            Debug.Log(_path);
+        }
+        else
+        {
+            Debug.Log("Directory already exists");
+            Debug.Log(_path);
         }
     }
 
