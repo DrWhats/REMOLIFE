@@ -18,7 +18,6 @@ public class Bird : MonoBehaviour
         birdAnimator.SetBool("PlayerInZone", true);
         birdAnimator.SetBool("PlayerTooFast", true);
         birdContainer.SetBool("PlayerInZone", true);
-        birdContainer.SetBool("PlayerTooFast", true);
         Debug.Log("Start Flying");
     }
 
@@ -27,7 +26,6 @@ public class Bird : MonoBehaviour
         birdContainer.SetBool("PlayerInZone", false);
         birdAnimator.SetBool("PlayerTooFast", false);
         birdAnimator.SetBool("PlayerInZone", false);
-        birdContainer.SetBool("PlayerTooFast", false);
         birdAnimator.Play("Flying 0");
         birdContainer.Play("land");
         Debug.Log("Stop Flying");

@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/2) Apple garden.unity
     guid: 327b2f9e27fdd9945949afe8b321f4f3
+  - enabled: 1
+    path: Assets/3) Bird's location.unity
+    guid: 824b085e79d5e6746b5c5bb7b910d77b
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: ff21c94cd2144624ca5c09123bc8c8be, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: b24d614a20225f447a5e68a9410d789d, type: 2}
