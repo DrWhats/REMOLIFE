@@ -10,6 +10,7 @@ class UserReader: MonoBehaviour
     private string[] _playerList;
     private player _currentPlayer;
     [SerializeField] private GameObject _mainPanel;
+    [SerializeField] private GameObject _playerPanel;
     [SerializeField] private GameObject _createPanel;
     [SerializeField] private GameObject _PlayersPanel;
     [SerializeField] private GameObject _playerPlatePrefab;
@@ -27,6 +28,7 @@ class UserReader: MonoBehaviour
         } 
         else {
             _PlayersPanel.SetActive(true);
+            _playerPanel.SetActive(false);
             _mainPanel.SetActive(false);
             foreach (var player in _playerList) {
                 var playerPlate = Instantiate(_playerPlatePrefab, _PlayersPanel.transform);
@@ -37,6 +39,7 @@ class UserReader: MonoBehaviour
     
     public void ShowMainMenu() {
         _mainPanel.SetActive(true);
+        _playerPanel.SetActive(true);
         _PlayersPanel.SetActive(false);
         _createPanel.SetActive(false);
     }
