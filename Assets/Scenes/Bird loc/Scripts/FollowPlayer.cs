@@ -13,15 +13,15 @@ public class FollowPlayer : MonoBehaviour
     [SerializeField] private GameObject _rightControllerXray;
     [SerializeField] private GameObject _leftControllerXray;
     [SerializeField] private GameObject[] _popUp;
+    
     [Header("Disable controllers by zone")]
-    [SerializeField] private bool DisableControllers;
+    [SerializeField] private bool switchControllers;
 
     private bool inZone = false;
     private bool isFlying = false;
+    
 
-    // Update is called once per frame
-
-    private void Start()
+    void EnableSpeedometer()
     {
         StartCoroutine(CalcSpeed());
     }
@@ -42,12 +42,10 @@ public class FollowPlayer : MonoBehaviour
     {
         if (other.gameObject == _rightControllerXray || other.gameObject == _leftControllerXray)
         {
-            if (DisableControllers)
+            if (switchControllers)
             {
-                _leftControllerDirect.SetActive(true);
-                _rightControllerDirect.SetActive(true);
-                _leftControllerXray.SetActive(false);
-                _rightControllerXray.SetActive(false);
+                SetXrayControllers(false);
+                SetDirectControllers(true);
             }
 
             Debug.Log("Player in zone");
@@ -59,12 +57,10 @@ public class FollowPlayer : MonoBehaviour
     {
         if (other.gameObject == _rightControllerDirect || other.gameObject == _leftControllerDirect)
         {
-            if (DisableControllers)
+            if (switchControllers)
             {
-                _leftControllerXray.SetActive(true);
-                _rightControllerXray.SetActive(true);
-                _leftControllerDirect.SetActive(false);
-                _rightControllerDirect.SetActive(false);
+                SetXrayControllers(true);
+                SetDirectControllers(false);
             }
 
             Debug.Log("Player out of zone");
@@ -73,6 +69,18 @@ public class FollowPlayer : MonoBehaviour
             isFlying = false;
             inZone = false;
         }
+    }
+
+    void SetDirectControllers(bool target)
+    {
+        _leftControllerDirect.SetActive(target);
+        _rightControllerDirect.SetActive(target);
+    }
+
+    void SetXrayControllers(bool target)
+    {
+        _leftControllerXray.SetActive(target);
+        _rightControllerXray.SetActive(target);
     }
 
     IEnumerator CalcSpeed()
