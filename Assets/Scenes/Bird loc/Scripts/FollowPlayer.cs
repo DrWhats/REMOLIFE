@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -17,7 +18,12 @@ public class FollowPlayer : MonoBehaviour
 
     private bool inZone = false;
     private bool isFlying = false;
-    
+
+    private void Start()
+    {
+        _rightControllerDirect = GameObject.Find("RightHand Direct");
+        _rightControllerDirect = GameObject.Find("LeftHand Direct");
+    }
 
     void Update()
     {
