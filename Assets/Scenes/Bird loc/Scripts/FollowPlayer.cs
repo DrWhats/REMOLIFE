@@ -10,26 +10,18 @@ public class FollowPlayer : MonoBehaviour
 
     [SerializeField] private GameObject _rightControllerDirect;
     [SerializeField] private GameObject _leftControllerDirect;
-    [SerializeField] private GameObject _rightControllerXray;
-    [SerializeField] private GameObject _leftControllerXray;
     [SerializeField] private GameObject[] _popUp;
-    
-    [Header("Disable controllers by zone")]
-    [SerializeField] private bool switchControllers;
+
+    [Header("Disable controllers by zone")] [SerializeField]
+    private bool switchControllers;
 
     private bool inZone = false;
     private bool isFlying = false;
     
 
-    void EnableSpeedometer()
-    {
-        StartCoroutine(CalcSpeed());
-    }
-
     void Update()
     {
-        if ((currentLeftVelocity > maxVelocity ||
-             currentRightVelocity > maxVelocity) && inZone && !isFlying)
+        if ((currentLeftVelocity > maxVelocity || currentRightVelocity > maxVelocity) && inZone && !isFlying)
         {
             Debug.Log("Player is very fast.");
             bird.StartFly();
@@ -40,47 +32,28 @@ public class FollowPlayer : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == _rightControllerXray || other.gameObject == _leftControllerXray)
+        if (other.gameObject == _leftControllerDirect || other.gameObject == _rightControllerDirect)
         {
-            if (switchControllers)
-            {
-                SetXrayControllers(false);
-                SetDirectControllers(true);
-            }
-
-            Debug.Log("Player in zone");
             inZone = true;
+            Debug.Log("Player is in zone.");
+            StartCoroutine(CalcSpeed());
         }
     }
+
 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject == _rightControllerDirect || other.gameObject == _leftControllerDirect)
         {
-            if (switchControllers)
-            {
-                SetXrayControllers(true);
-                SetDirectControllers(false);
-            }
-
-            Debug.Log("Player out of zone");
+            
+            Debug.Log("Player out zone");
+            inZone = false;
+            isFlying = false;
             bird.StopFly();
             _popUp[1].SetActive(true);
-            isFlying = false;
-            inZone = false;
+            StopCoroutine(CalcSpeed());
         }
-    }
 
-    void SetDirectControllers(bool target)
-    {
-        _leftControllerDirect.SetActive(target);
-        _rightControllerDirect.SetActive(target);
-    }
-
-    void SetXrayControllers(bool target)
-    {
-        _leftControllerXray.SetActive(target);
-        _rightControllerXray.SetActive(target);
     }
 
     IEnumerator CalcSpeed()
