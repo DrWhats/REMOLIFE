@@ -1,4 +1,5 @@
 
+using System;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -10,7 +11,13 @@ public class AppleHarvest : MonoBehaviour
     [SerializeField] private GameObject[] _applesInBasket;
     [SerializeField] private TextMeshProUGUI _counter;
     [SerializeField] private GameObject _button;
-    
+    [SerializeField] private AudioSource _fanfara;
+
+    private void Start()
+    {
+        _fanfara = GameObject.Find("Fanfara_audio").GetComponent<AudioSource>();
+    }
+
     public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Apples"))
@@ -34,6 +41,7 @@ public class AppleHarvest : MonoBehaviour
 
     private void EndGame()
     {
+        _fanfara.Play();
         _button.SetActive(true);
         Debug.Log("Молодец!!!");
     }
