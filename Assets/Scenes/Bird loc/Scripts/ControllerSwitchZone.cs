@@ -15,16 +15,20 @@ public class ControllerSwitchZone : MonoBehaviour
         rightXRay = GameObject.Find("RightHand Xray");
         leftDirect = GameObject.Find("LeftHand Direct");
         rightDirect = GameObject.Find("RightHand Direct");
+        SetActiveDirectControllers(false);
     }
     
     void SetActiveDirectControllers(bool target)
     {
+        ;
         leftDirect.SetActive(target);
         rightDirect.SetActive(target);
     }
 
     void SetActiveXrayControllers(bool target)
     {
+        leftXRay.transform.localPosition = leftDirect.transform.localPosition;
+        rightXRay.transform.localPosition = rightDirect.transform.localPosition;
         leftXRay.SetActive(target);
         rightXRay.SetActive(target);
     }
@@ -33,6 +37,8 @@ public class ControllerSwitchZone : MonoBehaviour
     {
         if (other.gameObject == leftXRay || other.gameObject == rightXRay)
         {
+            leftDirect.transform.localPosition = leftXRay.transform.localPosition;
+            rightDirect.transform.localPosition = rightXRay.transform.localPosition;
             SetActiveDirectControllers(true);
             SetActiveXrayControllers(false);
         }
