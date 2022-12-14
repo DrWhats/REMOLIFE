@@ -42,6 +42,7 @@ public class AppleHarvest : MonoBehaviour
     private void EndGame()
     {
         _fanfara.Play();
+        Destroy(_fanfara.GameObject(), 3);
         _button.SetActive(true);
         Debug.Log("Молодец!!!");
     }
