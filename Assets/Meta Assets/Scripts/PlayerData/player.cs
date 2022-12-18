@@ -1,4 +1,3 @@
-
 using System;
 using System.IO;
 using UnityEngine;
@@ -18,5 +17,4 @@ public class player
         this.name = name;
         this.day = 0;
     }
-
 }
