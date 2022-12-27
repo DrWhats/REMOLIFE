@@ -9,6 +9,8 @@ public class ControllerSwitchZone : MonoBehaviour
     [SerializeField] private GameObject rightXRay;
     [SerializeField] private GameObject leftDirect;
     [SerializeField] private GameObject rightDirect;
+    
+    
     void Start()
     {
         leftXRay = GameObject.Find("LeftHand Xray");
@@ -20,7 +22,6 @@ public class ControllerSwitchZone : MonoBehaviour
     
     void SetActiveDirectControllers(bool target)
     {
-        ;
         leftDirect.SetActive(target);
         rightDirect.SetActive(target);
     }
