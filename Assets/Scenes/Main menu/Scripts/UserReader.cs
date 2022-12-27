@@ -7,8 +7,6 @@ using UnityEngine;
 class UserReader: MonoBehaviour
 {
     private string _path = null;
-    private string[] _playerList;
-    private player _currentPlayer;
     [SerializeField] private GameObject _mainPanel;
     [SerializeField] private GameObject _playerPanel;
     [SerializeField] private GameObject _createPanel;
@@ -22,15 +20,15 @@ class UserReader: MonoBehaviour
     {
         _path = Application.persistentDataPath + "/Users"; 
         CheckForPath();
-        _playerList = GetPlayersList();
-        if (_playerList.Length == 0) {
+        GameState.PlayerList = GetPlayersList();
+        if (GameState.PlayerList.Length == 0) {
             //_createPanel.SetActive(true);
         } 
         else {
             _PlayersPanel.SetActive(true);
             _playerPanel.SetActive(false);
             _mainPanel.SetActive(false);
-            foreach (var player in _playerList) {
+            foreach (var player in GameState.PlayerList) {
                 var playerPlate = Instantiate(_playerPlatePrefab, _PlayersPanel.transform);
                 playerPlate.GetComponentInChildren<PlayerPlate>().SetPlayer(GetPlayerFromJson(player));
             }
@@ -75,18 +73,18 @@ class UserReader: MonoBehaviour
     
     public void SetCurrentPlayer(player player)
     {
-        _currentPlayer = player;
+        GameState.Player = player;
         LoadPlayerData();
 
     }
     
     public string[] GetPlayersList()
     {
-        _playerList = Directory.GetFiles(_path, "*.json")
+        GameState.PlayerList = Directory.GetFiles(_path, "*.json")
             .Select(Path.GetFileNameWithoutExtension)
             .ToArray();
         
-        return _playerList;
+        return GameState.PlayerList;
     }
     
     public void DeletePlayer(string name)
@@ -102,9 +100,9 @@ class UserReader: MonoBehaviour
     
     public void LoadPlayerData()
     {
-        _playerName.text = _currentPlayer.name;
-        _playerDay.text = "День "+ _currentPlayer.day.ToString();
-        if (_currentPlayer.day == 0) {
+        _playerName.text = GameState.Player.name;
+        _playerDay.text = "День "+ GameState.Player.day.ToString();
+        if (GameState.Player.day == 0) {
             _continueButton.SetActive(false);
             _startButton.SetActive(true);
         }
