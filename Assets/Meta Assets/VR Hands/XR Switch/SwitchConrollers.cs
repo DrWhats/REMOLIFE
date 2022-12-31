@@ -18,7 +18,44 @@ public class SwitchConrollers : MonoBehaviour
         rightDirect = GameObject.Find("RightHand Direct");
         SetActiveDirectControllers(false);
     }
+
+    public GameObject getLeftXray()
+    {
+        if (leftXRay == null)
+        {
+            return GameObject.Find("LeftHand Xray");
+        }
+        return leftXRay;
+        
+    }
     
+    public GameObject getRightXray()
+    {
+        if (rightXRay == null)
+        {
+            return GameObject.Find("RightHand Xray");
+        }
+        return rightXRay;
+    }
+    
+    public GameObject getLeftDirect()
+    {
+        if (leftDirect == null)
+        {
+            return GameObject.Find("LeftHand Direct");
+        }
+        return leftDirect;
+    }
+    
+    public GameObject getRightDirect()
+    {
+        if (rightDirect == null)
+        {
+            return GameObject.Find("RightHand Direct");
+        }
+        return rightDirect;
+    }
+
     public void SwitchControllers()
     {
         if (leftXRay.activeSelf)

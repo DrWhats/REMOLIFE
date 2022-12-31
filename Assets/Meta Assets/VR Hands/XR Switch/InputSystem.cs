@@ -17,6 +17,8 @@ public class InputSystem : MonoBehaviour
     {
         if (pressed)
             Debug.Log("Primary button pressed");
+        if (!pressed)
+            Debug.Log("Primary button released");
     }
     
 }

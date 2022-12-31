@@ -4,44 +4,42 @@ using UnityEngine;
 
 public class ControllerSwitchZone : MonoBehaviour
 {
-    // Start is called before the first frame update
-    [SerializeField] private GameObject leftXRay;
-    [SerializeField] private GameObject rightXRay;
+    
+    [SerializeField] private SwitchConrollers controllers;
     [SerializeField] private GameObject leftDirect;
     [SerializeField] private GameObject rightDirect;
+    [SerializeField] private GameObject leftXray;
+    [SerializeField] private GameObject rightXray;
     
     
-    void Start()
+    void Awake()
     {
-        leftXRay = GameObject.Find("LeftHand Xray");
-        rightXRay = GameObject.Find("RightHand Xray");
-        leftDirect = GameObject.Find("LeftHand Direct");
-        rightDirect = GameObject.Find("RightHand Direct");
-        SetActiveDirectControllers(false);
-    }
-    
-    void SetActiveDirectControllers(bool target)
-    {
-        leftDirect.SetActive(target);
-        rightDirect.SetActive(target);
-    }
+        FindReference();
+        controllers = GameObject.FindObjectOfType<SwitchConrollers>();
 
-    void SetActiveXrayControllers(bool target)
-    {
-        leftXRay.transform.localPosition = leftDirect.transform.localPosition;
-        rightXRay.transform.localPosition = rightDirect.transform.localPosition;
-        leftXRay.SetActive(target);
-        rightXRay.SetActive(target);
     }
+    
+    private void FindReference()
+    {
+        while (controllers == null)
+        {
+            Debug.Log("Finding reference");
+            controllers = GameObject.FindObjectOfType<SwitchConrollers>();
+            leftDirect = controllers.getLeftDirect();
+            rightDirect = controllers.getRightDirect();
+            leftXray = controllers.getLeftXray();
+            rightXray = controllers.getRightXray();
+        }
+
+    }
+    
     
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == leftXRay || other.gameObject == rightXRay)
+        if (other.gameObject == leftXray || other.gameObject == rightXray)
         {
-            leftDirect.transform.localPosition = leftXRay.transform.localPosition;
-            rightDirect.transform.localPosition = rightXRay.transform.localPosition;
-            SetActiveDirectControllers(true);
-            SetActiveXrayControllers(false);
+            controllers.SetActiveDirectControllers(true);
+            controllers.SetActiveXrayControllers(false);
         }
     }
     
@@ -49,8 +47,8 @@ public class ControllerSwitchZone : MonoBehaviour
     {
         if (other.gameObject == leftDirect || other.gameObject == rightDirect)
         {
-            SetActiveDirectControllers(false);
-            SetActiveXrayControllers(true);
+            controllers.SetActiveDirectControllers(false);
+            controllers.SetActiveXrayControllers(true);
         }
     }
 

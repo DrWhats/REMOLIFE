@@ -12,18 +12,30 @@ public class FollowPlayer : MonoBehaviour
     [SerializeField] private GameObject _rightControllerDirect;
     [SerializeField] private GameObject _leftControllerDirect;
     [SerializeField] private GameObject[] _popUp;
+    [SerializeField] private SwitchConrollers controllers;
 
-    [Header("Disable controllers by zone")] [SerializeField]
-    private bool switchControllers;
 
     private bool inZone = false;
     private bool isFlying = false;
 
-    private void Start()
+    private void Awake()
     {
-        _rightControllerDirect = GameObject.Find("RightHand Direct");
-        _rightControllerDirect = GameObject.Find("LeftHand Direct");
+        controllers = FindObjectOfType<SwitchConrollers>();
+        FindReference();
+
     }
+
+    private void FindReference()
+    {
+        while (controllers == null)
+        {
+            Debug.Log("Waiting for controllers");
+            controllers = GameObject.FindObjectOfType<SwitchConrollers>();
+        }
+        _leftControllerDirect = controllers.getLeftDirect();
+        _rightControllerDirect = controllers.getRightDirect();
+    }
+
 
     void Update()
     {
